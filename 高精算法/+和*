@@ -1,0 +1,91 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<stdlib.h>
+#define NUMSIZE 10000
+
+//高精度算法 +、*
+class HighAcc
+{
+	char m_data[NUMSIZE];
+	size_t m_size;
+public:
+	HighAcc(string s) :
+		m_size(s.size())
+	{
+		string::reverse_iterator i; //逆向迭代器,i相当于指针
+		int j = 0;
+		for (i = s.rbegin(); i != s.rend(); i++)  //倒着遍历字符串
+		{
+			m_data[j] = *i - '0';  //字符转换为数字，并倒着存放在数组中
+			j++;
+		}
+	}
+	HighAcc() :
+		m_size(1)
+	{
+		memset(m_data, 0, NUMSIZE);  //创捷接结果的字符，并初始化
+	}
+
+	HighAcc operator + (const HighAcc &s) const  //高精度加法
+	{
+		HighAcc res;
+		size_t maxsize = m_size > s.m_size ? s.m_size : m_size;  //比较两字符长度
+		int i;
+		int tmp;
+		for (i = 0; i < maxsize; i++)  //相加
+		{
+			tmp = m_data[i] + s.m_data[i] + res.m_data[i];  //位数i相加，并加上进位
+			res.m_data[i] = tmp % 10;  //本位
+			res.m_data[i + 1] = tmp / 10;  //进位
+		}
+		res.m_size = maxsize + res.m_data[i];  //相加结果的长度
+		return res;
+	}
+
+	HighAcc operator * (const HighAcc &s) const  //高精度乘法
+	{
+		HighAcc res;
+		int i, j, tmp;
+		if ((m_data[0] == 0 && m_size == 1) || (s.m_data[0] == 0 && s.m_size == 1))
+		{
+			return res;
+		}
+		for (i = 0; i < m_size; i++)
+		{
+			for (j = 0; j < s.m_size; j++)
+			{
+				tmp = m_data[i] * s.m_data[j] + res.m_data[i + j];  //相乘结果
+				res.m_data[i + j] = tmp % 10;  //本位
+				res.m_data[i + j + 1] += tmp / 10;  //高位进位值
+			}
+		}
+		res.m_size = m_size + s.m_size - !res.m_data[i + j - 1];  //相乘结果的长度
+		return res;
+	}
+
+	operator string()  //强转运算符的重载，默认省略返回值
+	{
+		string s;
+		int i;
+		for (i = m_size - 1; i >= 0; i--)
+		{
+			s.push_back(m_data[i] + '0');
+		}
+		return s;
+	}
+};
+int main()
+{
+	string s1("1234");
+	string s2("567");
+
+	HighAcc num1(s1);
+	HighAcc num2(s2);
+
+	cout << (string)(num1 + num2) << endl;  //string的重载和高精加法
+	cout << (string)(num1 * num2) << endl;
+
+	system("pause");
+	return 0;
+}
