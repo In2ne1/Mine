@@ -1,0 +1,135 @@
+#include<iostream>
+#include<string>   //标准库中的string类
+using namespace std;
+#include<typeinfo>
+
+#if 0
+int main()
+{
+	string s1;    //标准库中的string类
+	string s2("hello,world!");
+	string s3 = s2;
+	string s4(3, '6');
+
+	cout << s1 << endl
+		<< s2 << endl
+		<< s3 << endl
+		<< s4 << endl;
+	
+	cout << s1.size() << endl
+		 << s2.size() << endl
+		 << s3.length() << endl
+		 << s4.length() << endl;
+
+	cout << s1.capacity() << endl   //初始容量默认15，每次加16
+		 << s2.capacity() << endl  //capacity不会缩小，只会扩大
+		 << s3.capacity() << endl
+		 << s4.capacity() << endl;
+	
+	cout << s4.empty() << endl;  //判空，是空1，非空0
+	s4.clear();  //清空有效字符，不改变capacity，清空size
+	cout << s4.size() << endl;   //清空后size为0
+	
+	s1.reserve(500);  //限定容量,预留空间
+	cout << s1.capacity() << endl;  //511，扩到16的倍数减一
+	
+	s1.push_back('1');
+	s1.resize(10, 'n');  //用n填充多出的元素空间
+	cout << s1 << endl;
+	cout << s1.size() << endl;
+	s1.resize(10);  //如果值超过了capacity，则会先调用reserve扩容
+	s1.push_back('2');  //无填充时，则用0填充多出的元素空间
+	cout << s1 << endl;
+	
+	s1.resize(6);   //截断
+	cout << s1 << endl;
+	
+	for (auto &i : s1 )
+	{
+		cout << i;
+	}
+	cout << endl;
+	
+	for (auto i : s1.begin(); i != s1.end(); i++)
+	{
+		cout << *i;
+	}
+	cout << endl;
+	
+	string::iterator i;  //迭代器遍历数组中的每个元素
+	for (i = s1.begin(); i != s1.end(); i++)  //容器遍历
+	{
+		cout << *i ;
+	}
+	cout << endl;
+			   
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+int main()
+{
+	string s1("aaaaa");
+	
+	cout << typeid(s1).name() << endl;
+	cout << typeid(s1.c_str()).name() << endl;  //char const * 
+
+	s1.append("bbb");
+	s1.append("ccc");  //字符串
+	s1 += "ddd";
+	cout << s1 << endl;
+
+	s1.append(2, 'e');  //n个字符
+	cout << s1 << endl;
+
+	system("pause");
+	return 0;
+}
+#endif
+#if 0
+//substr、find、rfind
+int main()
+{
+	string s1("abcdabcacdaderf");
+	string s2("bca");
+
+	cout << s1.find(s2) << endl;  //从字符容器s1中查找字符容器s2
+	cout << s1.find("r") << endl;  //从原字符起始位置开始查找字符串
+	cout << s1.find("da", 5) << endl;  //从原字符串终第五个位置开始找
+	cout << s1.find("daday", 5, 3) << endl;  //截断查找，只找该给出字符串中的前三个
+	cout << s1.find("0") << endl;  //未找到返回-1即4294967295
+
+	cout << s1.rfind(s2) << endl;    //从后往前查找
+	cout << s1.rfind("rf") << endl; 
+	cout << s1.rfind("da", 5) << endl;  
+	cout << s1.rfind("dabde", 5, 3) << endl;
+
+	cout << s1.substr(5, 3) << endl;  //从字符容器s1中第五个位置开始，截断3个字符长度
+
+	system("pause");
+	return 0;
+}
+#endif
+
+int main()
+{
+	string s1("2ne1");
+
+	for (auto & i : s1)  //范围for遍历字符容器
+	{
+		cout << i;
+	}
+	cout << endl;
+
+	string::iterator is;  //迭代器遍历字符容器
+	for (is = s1.begin(); is != s1.end(); is++)
+	{
+		cout << *is;
+	}
+	cout << endl;
+
+	system("pause");
+	return 0;
+}
