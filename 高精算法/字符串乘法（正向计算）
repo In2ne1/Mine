@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<stdlib.h>
+//字符串乘法
+
+string stringMul(string num1, string num2)
+{
+	int m = num1.size();
+	int n = num2.size();
+	char *mul = (char*)calloc('0', sizeof(char)*(m + n));
+	for (int i = m - 1; i >= 0; i--)  //字符相乘
+	{
+		for (int j = n - 1; j >= 0; j--)
+		{
+			mul[i + j + 1] += (num1.at(i) - '0') * (num2.at(j) - '0');    //某一位的乘积总和
+			mul[i + j] += mul[i + j + 1] / 10;  //向高位进位
+			mul[i + j + 1] %= 10;  //本位
+		}
+	}
+
+	int count = 0;
+	while (mul[count] == 0)
+	{
+		count++;
+	}
+	for (int i = 0, j = count; i < (m + n - count); i++, j++)  //字符左移，覆盖掉高位的0
+	{
+		mul[i] = mul[j] + '0';  //左移同时，把计算出的每位数值转换成字符
+	}
+	while (count)
+	{
+		mul[m + n - count] = '\0';
+		count--;
+	}
+	string str(mul);
+	free(mul);
+	return str;
+}
+
+int main()
+{
+	string num1("1234");
+	string num2("567");
+
+	cout << stringMul(num1, num2) << endl;
+
+	system("pause");
+	return 0;
+}
