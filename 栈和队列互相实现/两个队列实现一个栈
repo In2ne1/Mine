@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+#include<stack>
+#include<queue>
+
+class queueStack  //两个队列实现一个栈
+{
+private:
+	queue<int> m_queue;
+public:
+	queueStack()
+	{
+
+	}
+	void push(int x)
+	{
+		m_queue.push(x);
+	}
+	void pop()
+	{
+		queue<int> queue;
+		while (m_queue.size() > 1)
+		{
+			queue.push(m_queue.front());
+			m_queue.pop();
+		}
+		m_queue.pop();
+		m_queue = queue;
+	}
+	int top()
+	{
+		queue<int> queue;
+		while (m_queue.size() > 1)
+		{
+			queue.push(m_queue.front());
+			m_queue.pop();
+		}
+
+		int tmp = m_queue.front();
+		queue.push(m_queue.front());
+		m_queue = queue;
+
+		return tmp;
+	}
+};
+
+int main()
+{
+	queueStack s;
+
+	s.push(1);
+	s.push(2);
+	s.push(3);
+	s.push(4);
+	s.push(5);
+
+	cout << s.top() << endl;
+
+	s.pop();
+	s.pop();
+	s.push(6);
+	s.push(7);
+	cout << s.top() << endl;
+
+	system("pause");
+	return 0;
+}
