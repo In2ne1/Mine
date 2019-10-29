@@ -20,7 +20,7 @@ BTNode* BinaryTreeCreate(BTDataType* src)  //int* pi //src树的节点，pi记�
 	return cur;
 }
 
-void BinaryTreePrevOrder(BTNode* root)   //越下的节点越先遍历，使用递归
+void BinaryTreePrevOrder(BTNode* root)   //先序，越下的节点越先遍历，使用递归
 {
 	if(root)
 	{ 
@@ -30,7 +30,7 @@ void BinaryTreePrevOrder(BTNode* root)   //越下的节点越先遍历，使用�
 	}
 }
 
-void BinaryTreeInOrder(BTNode* root)
+void BinaryTreeInOrder(BTNode* root)  //中序
 {
 	if(root)
 	{ 
@@ -40,7 +40,7 @@ void BinaryTreeInOrder(BTNode* root)
 	}
 }
 
-void BinaryTreePostOrder(BTNode* root)
+void BinaryTreePostOrder(BTNode* root)  //后序
 {
 	if (root)
 	{
@@ -61,7 +61,7 @@ void BinaryTreeDestory(BTNode* root)  //后序销毁
 }
 
 
-int BinaryTreeSize(BTNode* root)
+int BinaryTreeSize(BTNode* root)  //树节点个数
 {
 	if (root)
 	{
@@ -70,7 +70,7 @@ int BinaryTreeSize(BTNode* root)
 	return 0;
 }
 
-int BinaryTreeLeafSize(BTNode* root)
+int BinaryTreeLeafSize(BTNode* root)  //叶子节点个数
 {
 	if(root)
 	{
