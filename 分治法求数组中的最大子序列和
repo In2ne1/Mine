@@ -1,0 +1,58 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+//给一个数组，返回它的最大连续子序列的和
+//子向量的长度至少是1
+
+int FindGreatestSumOfSubArray(vector<int> arr, int left, int right)
+{
+	int sum = 0;
+	if (left == right)  //数组中只有一个数,
+	{
+		return sum = arr[left];
+	}
+	else
+	{
+		int middle = (left + right) / 2;
+		int leftsum = FindGreatestSumOfSubArray(arr, left, middle);  //递归求左边子序列最大和
+		int rightsum = FindGreatestSumOfSubArray(arr, middle + 1, right);  //递归求右边子序列最大和
+		
+		int lefts = 0;  //中间子序列最大值
+		int leftMaxSum = 0;  //左半边子序列最大和
+		for (int i = middle; i >= left; --i)
+		{
+			lefts += arr[i];
+			if (lefts > leftMaxSum)
+			{
+				leftMaxSum = lefts;  //如果新加上元素后的值比最大子序列和大，则把该元素加入到最大子序列里
+			}
+		}
+		int rights = 0;
+		int rightMaxSum = 0;  //右半边子序列最大和
+		for (int i = middle + 1; i <= right; ++i)
+		{
+			rights += arr[i];
+			if (rights > rightMaxSum)
+			{
+				rightMaxSum = rights;   //如果新加上元素后的值比最大子序列和大，则把该元素加入到最大子序列里
+			}
+		}
+		int middlesum = leftMaxSum + rightMaxSum;  //中间最大和 = 左半边最大和加右半边最大和
+
+		sum = leftsum > rightsum ? leftsum : rightsum;  //左和右的最大和值比较,将大的先赋给sum
+		sum = middlesum > sum ? middlesum : sum;  //sum再和中的比较，大的赋给sum
+	}
+	return sum;
+}
+
+int main()
+{
+	int a[] = { 6,-2,11,-4,13,-5,-2 };
+	vector<int> arr(a, a + sizeof(a) / sizeof(a[0]));
+	int len = arr.size();
+
+	cout << FindGreatestSumOfSubArray(arr, 0, len - 1) << endl;
+
+	system("pause");
+	return 0;
+}
