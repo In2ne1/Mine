@@ -1,6 +1,9 @@
 #include<iostream>
 using namespace std;
 #include<string>
+//从一个字符串中删除所有另一个字符串含有的字符
+//eg: 从"They are student."中删除"aeiou"字符
+//变为"Thy r stdnt."
 
 class Solution
 {
