@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<vector>
+//数组中有一个数字出现的次数超过数组长度的一半
+//找出这个数字，并输出
+//eg：输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}
+//由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2
+//如果不存在，则输出0
+
+class Solution {
+public:
+    int MoreThanHalfNum_Solution(vector<int> numbers) 
+    {
+        if(numbers.empty())
+        {
+            return 0;
+        }
+        sort(numbers.begin(), numbers.end());   //sort给数组排序，sort第三个参数默认为升序
+        int num = numbers.size() / 2;  //排序后中间的数一定是出现次数最多的数
+        int count = 0;
+        for(int i = 0; i < numbers.size(); i++)  //遍历数组查看是否是出现最多的数字
+        {
+            if(numbers[i] == numbers[num])
+            {
+                count++;
+            }
+        }
+        if(count > numbers.size() / 2)  //若是，则返回这个数
+        {
+            return numbers[num];
+        }
+        else  //否则返回0
+        {
+            return 0;
+        }
+    }
+};
