@@ -40,3 +40,31 @@ int main()
 
     return 0;
 }
+
+
+法二：
+哈希映射法
+#include<iostream>
+using namespace std;
+#include<string>
+int main()
+{
+	string str1, str2;
+	getline(cin, str1);
+	getline(cin, str2);
+	int hashtable[256] = { 0 };  //哈希映射思想先用str2统计字符出现的次数
+	for (size_t i = 0; i < str2.size(); ++i)  //遍历str1.shr1[i]映射哈希表，对应位置为0，则表示这个字符在
+	{                                         //str2中未出现，则将它+=到ret中
+		hashtable[str2[i]]++;
+	}
+	string ret;
+	for (size_t i = 0; i < str1.size(); ++i)
+	{
+		if (hashtable[str1[i]] == 0)
+		{
+			ret += str1[i];
+		}
+	}
+	cout << ret << endl;
+	return 0;
+}
