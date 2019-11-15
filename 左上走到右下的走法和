@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+//计算n * m的棋盘格子（n为横向，m为纵向）
+//沿着各自边缘线从左上角走到右下角
+//不能回头走，只能向下或向右，总共有多少种走法
+//eg：输入 2 2
+//输出： 6
+
+class Solution
+{
+public:
+	int countWay(int n, int m)
+	{
+		vector<vector<int>> vv(n + 1, vector<int>(m + 1, 1));  //二维数组初始化
+		int i, j;
+		for (i = 1; i <= n; i++)
+		{
+			for (j = 1; j <= m; j++)
+			{
+				vv[i][j] = vv[i - 1][j] + vv[i][j - 1];
+			}
+		}
+		return vv[n][m];
+	}
+};
+int main()
+{
+	Solution aa;
+	int n, m;
+	cin >> n >> m;
+	//while (cin >> n >> m)  //oj循环输入
+	//{
+		cout << aa.countWay(n, m);
+	//}
+	return 0;
+}
