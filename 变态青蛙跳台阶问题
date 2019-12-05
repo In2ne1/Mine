@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+//变态跳台阶
+//共有n个台阶，青蛙每次可以跳1、2、3 ...... n节台阶
+//求n个台阶共有多少种跳法
+
+//1个  1种
+//2个  2种
+//3个  4种
+//4个  8种
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		if (n < 1)
+			cout << 0;
+		else
+			cout << pow(2, n - 1);
+	}
+	return 0;
+}
