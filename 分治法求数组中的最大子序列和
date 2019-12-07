@@ -64,24 +64,57 @@ int main()
 using namespace std;
 int main()
 {
-int size;
-cin >> size;
-vector<int> nums(size);
-for(size_t i = 0; i < size; ++i)
-cin >> nums[i];
-int result = nums[0];
-int sum1 = 0, sum2 = 0;
-for (int i = 0; i < nums.size(); i++)
- {
-// 计算到num[i]的子数组的最大和
-sum2 = sum1 >= 0 ? sum1+nums[i] : nums[i];
-if(sum2 > result)
-result = sum2;
-比特科技制作
-if(sum2 < 0)
-sum2 = 0;
-sum1 = sum2;
- }
-cout<<result<<endl;
-return 0; 
+	int size;
+	cin >> size;
+	vector<int> nums(size);
+	for(size_t i = 0; i < size; ++i)
+		cin >> nums[i];
+	int result = nums[0];
+	int sum1 = 0, sum2 = 0;
+	for (int i = 0; i < nums.size(); i++)
+ 	{
+		// 计算到num[i]的子数组的最大和
+		sum2 = sum1 >= 0 ? sum1+nums[i] : nums[i];
+		if(sum2 > result)
+			result = sum2;
+		if(sum2 < 0)
+			sum2 = 0;
+		sum1 = sum2;
+ 	}
+	cout<<result<<endl;
+	return 0; 
+}
+
+
+动归(清晰简单版)：
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int maxChildAdd(vector<int> &data)
+{
+    int count = data[0];
+    int tmp = 0;
+    for(auto &i : data)
+    {
+        tmp += i;
+        count = max(count, tmp);
+        if(tmp < 0)
+            tmp = 0;
+    }
+    return count;
+}
+int main()
+{
+    int n;
+    int num;
+    cin >> n;
+    vector<int> arr;
+    while(n--)
+    {
+        cin >> num;
+        arr.push_back(num);
+    }
+    cout << maxChildAdd(arr) << endl;
+    return 0;
 }
