@@ -1,0 +1,269 @@
+#include<iostream>   //不要加.h
+using namespace std;  //加了using后可不写 std:: 域 
+
+#if 0
+namespace test   //名字空间，可嵌套
+{
+	namespace n1
+	{
+		int add(int a, int b)
+		{
+			std::cout << "1 ";
+			return a + b;
+		}
+	}
+}
+namespace n2
+{
+	int add(int a, int b)
+	{
+		std::cout << "2 ";
+		return a + b;
+	}
+}
+namespace n2   //名字空间重名，系统会自动合并
+{
+	int sub(int a, int b)
+	{
+		std::cout << "2 ";
+		return a - b;
+	}
+}
+
+int main()
+{
+	std::cout << test::n1::add(2, 3);   //加了using后可不写 std:: 域
+	std::cout << "\n";
+	cout << n2::sub(2, 3);
+	cout << "\n";
+
+	system("pause");
+	return 0;
+}
+#endif
+#if 0
+int main()  //输入输出流
+{
+	cout << "Hello world!" << endl;
+
+	int a;
+	cin >> a;
+
+	system("pause");
+	return 0;
+}
+#endif
+#if 0
+void func(int a, int b = 20, int c = 30)  //缺省参数必须在参数列表的末尾，否则会产生传入参数的歧义
+{                                              //声明和定义的默认值不能同时出现，只能出现一次
+	cout << a << endl;
+	cout << b << endl;
+	cout << c << endl;
+}
+void swapArgs(int* p1, int* p2)  //函数重载
+{
+	int tmp;
+	tmp = *p1;
+	*p1 = *p2;
+	*p2 = tmp;
+}
+void swapArgs(float* p1, float* p2)  //函数重载，参数不能相同
+{
+	float tmp;
+	tmp = *p1;
+	*p1 = *p2;
+	*p2 = tmp;
+}
+int main()
+{
+	//func();  //缺省参数，没传参数则为默认值
+	func(7);
+	func(2, 3);
+	func(3, 4, 5);
+
+	int a = 1, b = 5;
+	float c = 3.14, d = 6.18;
+	swapArgs(&a, &b);
+	swapArgs(&c, &d);
+	cout << a << " " << b << endl;
+	cout << c << " " << d << endl;
+
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+extern "C"  //编译不通过
+{
+	int func(int a)
+	{
+		return a;
+	}
+	int func(int a, int b)
+	{
+		return a;
+	}
+}
+
+int main()
+{
+	int a = 0;
+	func(a);
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+/*
+int func(int a)  //1.形参变，实参不变
+
+{
+
+	a = 10;
+
+	return a;
+
+}
+
+int func(int* a)  //2.传指针
+
+{
+
+	*a = 10;
+
+	return *a;
+
+}
+*/
+int func(int &a)  //3.传的是引用，改的是同一片空间的内容，故修改成功
+{
+	a = 10;
+	return a;
+}
+int main()
+{
+	/*
+	int a = 5;
+	int &aaa = a;  //引用即为给该变量取别名，占用的是同一片内存空间
+
+	cout << &a << endl;  //输出地址
+	cout << &aaa << endl;  //输出地址
+	cout << a << aaa << endl;
+	*/
+
+	/*
+	int a = 5;
+	//func(a);  //1.不能更改，没传址
+	//cout << a << endl;
+	//func(&a);   //2.可更改
+	func(a);  //3.传引用，更改成功
+	cout << a << endl;
+	*/
+
+	const int a = 5;
+	const int &aaa = a;
+
+	double b = 1;
+	const double &bbb = b;  //VS编译器下可通过
+
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+struct A {
+	int a[100000];
+};
+void test1(A &a)  //传引用
+{
+
+}
+void test2(A a)   //传变量
+{
+
+}
+int main()
+{
+	A a;
+	for (int i = 0; i < 100000; i++)
+	{
+		//test1(a);  //速度快，传引用提高代码效率
+		test2(a);    //速度慢传变量本身
+	}
+
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+inline int func1(int &a)   //内联函数在调用内联函数的地方展开，不创建新栈
+{
+	return a;
+}
+int &func2(int a)  //效率变高
+{
+	return a;
+}
+int* func3(int * pa)   //效率变高
+{
+	return pa;
+}
+int main()
+{
+	int a = 5;
+	cout << func1(a) << endl;
+	cout << (func2(a) = 4) << endl;  //func2函数返回值是a的引用(&a)，即变量的别名，可以再次赋值
+	cout << *func3(&a) + 1 << endl;
+
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+#include<typeinfo>
+
+int main()
+{
+	int i = 0;
+	auto j = i; //C++11中，auto类型指示符来指示编译器，auto声明的变量必须由编译器在编译时期推导而得
+	auto * k = &i;
+	cout << typeid(j).name() << endl;
+	cout << typeid(k).name() << endl;
+
+
+	system("pause");
+	return 0;
+}
+#endif
+
+#if 0
+
+int  main()
+{
+	int arr[] = { 2,5,4,3,1 };
+
+	for (auto i : arr)  //范围for用法：必须知道arr大小，定义一个变量i，去遍历arr
+	{
+		cout << i << " ";
+	}
+	cout << endl;
+
+	for (auto &i : arr)  //定义一个引用i，去访问arr，并可该arr中的值
+	{
+		i *= 2;
+	}
+	for (auto i : arr)  //定义一个变量i，去遍历arr
+	{
+		cout << i << " ";
+	}
+	cout << endl;
+
+	system("pause");
+	return 0;
+}
+#endif

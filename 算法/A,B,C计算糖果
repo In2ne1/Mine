@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+//计算糖果：A,B,C每人手里都有一些糖，我本不知道具体有多少个
+//但是我们知道A-B,B-C,A+B,B+C的值
+//其中每个字母代表每个人所拥有的糖数
+//现通过以上数值计算每人手中糖果数，即A,B,C
+//输入一行共4个整数
+//输出A,B,C的值，中间用空格隔开，行末无空格
+//若不存在这样的数，则输出"No"
+//eg: 输入 1 -2 3 4
+//输出: 2 1 3
+class Solution
+{
+public:
+	void func(vector<int> aa)
+	{
+		vector<int> bb;
+		int A = (aa[0] + aa[2]) / 2;  //A - B + A + B = 2A
+		int B = (aa[2] - aa[0]) / 2;  //A + B - (A - B) = 2B 
+		int C = B - aa[1];  //B - C,已知B
+		if (B + C == aa[3])  // 判断求得的B + C是否等于给出的
+		{
+			bb.push_back(A);
+			bb.push_back(B);
+			bb.push_back(C);
+		}
+		if (!bb.empty())
+		{
+			for (auto &ii : bb)
+			{
+				cout << ii << " ";
+			}
+			bb.pop_back();
+		}
+		else
+		{
+			cout << "No" << endl;
+		}
+	}
+};
+int main()
+{
+	Solution ss;
+	vector<int> aa;
+	int num;
+	for (int i = 0; i < 4; i++)
+	{
+		cin >> num;
+		aa.push_back(num);
+	}
+	ss.func(aa);
+
+	return 0;
+}

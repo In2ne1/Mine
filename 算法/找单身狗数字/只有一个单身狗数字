@@ -1,0 +1,26 @@
+//给定一个数组
+//其中其余数字都出现了两次
+//只有一个只出现了一次
+//找出这个数字
+
+int singleNumber(vector<int>& nums)   //找单身狗
+{
+	int value = 0;
+	for (auto & i : nums)
+	{
+		value ^= i;   //同一个数字异或两次相当于一加一减
+	}
+	return value;
+}
+
+int main()
+{
+
+	int b[] = { 15,15,20,100,20,5,100,6,7,7,6 };
+	vector<int> nums(b, b + sizeof(b) / sizeof(b[0]));
+
+	cout << singleNumber(nums) << endl;
+
+	system("pause");
+	return 0;
+}

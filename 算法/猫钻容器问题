@@ -1,0 +1,18 @@
+#include<iostream>
+using namespace std;
+//猫钻容器
+//若猫的身长大于容器的周长，则猫进不去，输出"NO"
+//反之输出"Yes"
+//输入多组
+int main1()
+{
+	double n1, n2;
+	while (cin >> n1 >> n2)
+	{
+		if (n1 > 2 * 3.14 * n2)
+			cout << "No" << endl;
+		else
+			cout << "Yes" << endl;
+	}
+	return 0;
+}

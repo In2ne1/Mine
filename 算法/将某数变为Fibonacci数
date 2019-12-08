@@ -1,0 +1,30 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+//给你一个num，你想让其变为一个Fibonacci数
+//每一步你可以把当前数字X变为X-1或者X+1
+//现在给你一个数num求最少需要多少步可以变为Fibonacci数。
+
+int main()
+{
+	int f_2 = 0, f_1 = 1;
+	int f = 0;
+	int num, a, b;
+	scanf("%d", &num);
+	while (1)
+	{
+		f = f_1 + f_2;
+		f_2 = f_1;
+		f_1 = f;
+		if (f >= num)
+		{
+			a = f - num;
+			break;
+		}
+		b = num - f;
+	}
+	printf("%d\n", a < b ? a : b);
+
+	system("pause");
+	return 0;
+}
