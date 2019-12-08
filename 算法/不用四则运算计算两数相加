@@ -1,0 +1,14 @@
+//不用+ - * / 计算两个数相加
+class Solution {
+public:
+	int Add(int num1, int num2)
+	{
+		int a = num1 ^ num2;
+		int b = (num1 & num2) << 1;
+		if (b != 0)
+		{
+			a = Add(a, b);
+		}
+		return a;
+	}
+};

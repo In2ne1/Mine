@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+//循环输入三角形三个边
+//判断是否能构成三角形
+int main()
+{
+	double a, b, c;
+	while (cin >> a >> b >> c)
+	{
+		if ((a + b > c) && (a + c > b) && (b + c > a))
+			cout << "Yes" << endl;
+		else
+			cout << "No" << endl;
+	}
+	return 0;
+}
