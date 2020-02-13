@@ -1,0 +1,24 @@
+﻿  main.cpp
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(10): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+  d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(23): note: 参见对正在编译的 类 模板 实例化 "HushBucketNode<T>" 的引用
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(10): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(10): error C2238: 意外的标记位于“;”之前
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(14): error C3861: “m_next”: 找不到标识符
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(37): error C2065: “HashBucketNode”: 未声明的标识符
+  d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(268): note: 参见对正在编译的 类 模板 实例化 "HashBucket<K,V,KeyofValue,HF>" 的引用
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(37): error C2974: 'std::vector' : 模板 对于 '_Ty'是无效参数，应为类型
+  d:\vs2017\vc\tools\msvc\14.16.27023\include\vector(625): note: 参见“std::vector”的声明
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(37): error C3203: “allocator”: 未专用化的 类 模板 不能用作 模板 变量，该变量属于 模板 参数“_Alloc”，应为 real 类型
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(37): error C2059: 语法错误:“>”
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(37): error C2238: 意外的标记位于“;”之前
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(54): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+  d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(112): note: 参见对正在编译的 类 模板 实例化 "HashBucket<K,V,KeyofValue,HF>::iterator" 的引用
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(54): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(54): error C2238: 意外的标记位于“;”之前
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(56): error C2061: 语法错误: 标识符“HashBucketNode”
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(45): error C3861: “m_data”: 找不到标识符
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(47): error C3861: “m_primePos”: 找不到标识符
+d:\my_code\c++\2020.2.11模拟实现 哈希应用\2020.2.11模拟实现 哈希应用\hashbucket.h(268): fatal error C1903: 无法从以前的错误中恢复；正在停止编译
+  “D:\vs2017\VC\Tools\MSVC\14.16.27023\bin\HostX86\x86\CL.exe”中的内部编译器错误
+    请选择 Visual C++ 
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息
