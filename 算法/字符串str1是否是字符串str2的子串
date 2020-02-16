@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        const char* p1 = ransomNote.c_str();
+        const char* p2 = magazine.c_str();
+        const char* pos = nullptr;
+        while(p1)
+        {
+            if(p2)
+                return false;
+            if(*p1 == *p2)
+            {
+                pos = p2;
+                p1++;
+                p2++;
+            }
+            else
+                if(p1 == 0)
+                    p2++;
+                else
+                {
+                    p1 = 0;
+                    p2 = pos + 1;
+                }
+        }
+        return true;
+    }
+};
