@@ -1,0 +1,38 @@
+小明和小红在玩抽牌游戏，两人轮换从一堆有数值的牌中取走一张牌
+小明先抽，最后计算自己抽到的牌值之和，并输出小明牌值和比小红的差了多少，
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int main()
+{
+	int n, num;
+	vector<int> ai;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> num;
+		ai.push_back(num);
+	}
+	sort(ai.begin(), ai.end());
+	int flag = 0;
+	int count1 = 0;
+	int count2 = 0;
+	for (int i = ai.size() - 1; i >= 0; i--)
+	{
+		if (flag == 0)
+		{
+			count1 += ai[i];
+			flag = 1;
+		}
+		else
+		{
+			count2 += ai[i];
+			flag = 0;
+		}
+	}
+	cout << count1 - count2 << endl;
+	return 0;
+}
