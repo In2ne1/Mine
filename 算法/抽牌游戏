@@ -16,7 +16,7 @@ int main()
 		cin >> num;
 		ai.push_back(num);
 	}
-	sort(ai.begin(), ai.end());
+	sort(ai.begin(), ai.end());  //sort(ai.begin(), ai.end(), less<int>());降序
 	int flag = 0;
 	int count1 = 0;
 	int count2 = 0;
@@ -33,6 +33,6 @@ int main()
 			flag = 0;
 		}
 	}
-	cout << count1 - count2 << endl;
+	cout << count1 > count2 ? count1 - count2 : count2 - count1 << endl;
 	return 0;
 }
