@@ -1,0 +1,60 @@
+输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针random指向一个随机节点）
+请对此链表进行深拷贝，并返回拷贝后的头结点。
+注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空
+解法：
+先拷贝链表节点，使链表成如下状态
+原链表：A->B->C
+A->A'->B->B'->C->C'
+后拷贝原链表节点的随机指针
+如A-->C，则将A'的随机指针指向A随机指针的下一个即C'
+再将拷贝成功的链表节点从链表中拆分出来即可
+原链表还原A->B->C，拷贝链表变为A'->B'->C'
+/*
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next, *random;
+    RandomListNode(int x) :
+            label(x), next(NULL), random(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    RandomListNode* Clone(RandomListNode* pHead)
+    {
+        if(!pHead)
+            return NULL;
+        //拷贝并插入节点
+        RandomListNode* cur = pHead;
+        while(cur != NULL)
+        {
+            RandomListNode* clone = new RandomListNode(cur->label);
+            clone->next = cur->next;
+            cur->next = clone;
+            cur = clone->next;
+        }
+        //拷贝特殊指针
+        cur = pHead;
+        while(cur != NULL)
+        {
+            if(cur->random != NULL)
+                cur->next->random = cur->random->next;
+            cur = cur->next->next;
+        }
+        //拆分
+        cur = pHead;
+        RandomListNode* pcloneHead = cur->next;
+        RandomListNode* clone = pcloneHead;
+        while(cur != NULL)
+        {
+            cur->next = clone->next;
+            cur = cur->next;
+            if(cur != NULL)
+            {
+                clone->next = cur->next;
+                clone = clone->next;
+            }
+        }
+        return pcloneHead;
+    }
+};
