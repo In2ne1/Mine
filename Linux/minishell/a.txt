@@ -1,0 +1,10 @@
+总用量 20
+-rw-rw-r--. 1 test test    0 7月  12 13:57 a.txt
+-rw-rw-r--. 1 test test   36 7月   8 18:43 makefile
+-rwxrwxr-x. 1 test test 9160 7月  12 13:57 minishell
+-rw-rw-r--. 1 test test 2589 7月  12 13:57 minishell.c
+总用量 24
+-rw-rw-r--. 1 test test  226 7月  12 13:57 a.txt
+-rw-rw-r--. 1 test test   36 7月   8 18:43 makefile
+-rwxrwxr-x. 1 test test 9160 7月  12 13:57 minishell
+-rw-rw-r--. 1 test test 2589 7月  12 13:57 minishell.c
