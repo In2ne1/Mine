@@ -18,13 +18,31 @@ int main()
   pid_t pid = fork();  //创建子进程
   if(pid == 0)  //子进程，从管道读数据
   {
+    /*
+    close(pipefd[1]);  //关闭父进程的写端，测试所有写端被关闭后继续读取数据时，会read完后不再阻塞并返回0
+    sleep(3);
+    */
+
+    /*
+    close(pipefd[0]);  //关闭子进程的读端,测试所有读端被关闭继续写入数据时会触发异常的特性
+    sleep(1000);  //子进程不读取数据，先让父进程写入
+    */
     char buf[1024] = {0};
-    read(pipefd[0], buf, 1023);  //read(fd, buf, count);
-    printf("child:%s", buf);
+    int rlen = read(pipefd[0], buf, 1023);  //read(fd, buf, count);
+    printf("child:%d - %s", rlen, buf);
   }
   else if(pid > 0)  //父进程，向管道写数据
   {
-    sleep(3);  //让子进程先运行,测试管道内没有数据时进行读操作的情况
+    /*
+    close(pipefd[1]);  //关闭父进程的写端，测试所有写端被关闭后继续读取数据时，会read完后不再阻塞并返回0
+    sleep(1000);  //父进程不写入数据，先让子进程读取
+    */
+
+    /*
+    close(pipefd[0]);  //关闭父进程的读端,测试所有读端被关闭继续写入数据时会触发异常的特性
+    sleep(3);
+    */
+    sleep(3);  //让子进程先运行,测试管道内没有数据时进行读操作的情况 
     char* ptr = "i would like to buy a hamburger\n";
     int total_len = 0;
     while(1)  //循环向管道缓冲区写入数据
