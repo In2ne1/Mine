@@ -1,0 +1,185 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#define MAX_ROW 9
+#define MAX_COL 9
+#define MINE_COUNT 10   //地雷个数
+//开始菜单界面ok
+int Start()
+{
+	printf("--------------------------------\n");
+	printf("------------1.Start ------------\n");
+	printf("------------2.Exit -------------\n");
+	printf("--------------------------------\n");
+	printf(" 请输入您的选择！");
+	int choice = 0;
+	scanf("%d", &choice);
+	return choice;
+}
+//初始化两个地图数组
+void init(char show_map[MAX_ROW][MAX_COL],char mine_map[MAX_ROW][MAX_COL])
+{
+	for (int row = 0; row < MAX_ROW; ++row)
+	{
+		for (int col = 0; col < MAX_COL; ++col)
+		{
+			show_map[row][col] = '*';
+			mine_map[row][col] = '0';
+		}
+	}
+	for (int i = 0; i < MINE_COUNT; ++i)
+	{
+		int row = rand() % MAX_ROW;
+		int col = rand() % MAX_COL;
+		if (mine_map[row][col] == '1')
+		{
+			continue;
+			--i;
+		}
+		else
+		{
+			mine_map[row][col] = '1';
+		}
+	}
+}
+//打印地图
+void print(char show_map[MAX_ROW][MAX_COL])
+{
+	printf("   |");
+	for (int col = 0; col < MAX_COL; ++col)
+	{
+		printf(" %d", col);
+	}
+	printf("\n");
+	for (int col = 0; col < MAX_ROW; ++col)
+	{
+		printf("___");
+	}
+	printf("\n");
+	for (int row = 0; row < MAX_ROW; ++row)
+	{
+		printf(" %d |", row);
+		for (int col = 0; col < MAX_COL; ++col)
+		{
+			printf(" %c", show_map[row][col]);
+		}
+		printf("\n");
+	}
+}
+//当前位置周围雷的个数
+void 	MineCount(int row, int col, char show_map[MAX_ROW][MAX_COL], char mine_map[MAX_ROW][MAX_COL])
+{
+	int count = 0;
+	if (row - 1 >= 0 && col - 1 >= 0 && mine_map[row - 1][col - 1] == '1')
+	{
+		++count;
+	}
+	if (row - 1 >= 0 && mine_map[row - 1][col] == '1')
+	{
+		++count;
+	}
+	if (row - 1 >= 0 && col + 1 < MAX_COL && mine_map[row - 1][col + 1] == '1')
+	{
+		++count;
+	}
+	if (col - 1 >= 0 && mine_map[row][col - 1] == '1')
+	{
+		++count;
+	}
+	if (col + 1 < MAX_COL && mine_map[row][col + 1] == '1')
+	{
+		++count;
+	}
+	if (row + 1 <MAX_ROW && col - 1 >= 0 && show_map[row + 1][col - 1] == '1')
+	{
+		++count;
+	}
+	if (row + 1 < MAX_ROW && mine_map[row + 1][col] == '1')
+	{
+		++count;
+	}
+	if (row + 1 < MAX_ROW && col + 1 < MAX_COL && mine_map[row + 1][col + 1] == '1')
+	{
+		++count;
+	}
+	show_map[row][col] = count + '0';
+}
+
+void Game()
+{
+	//创建show_map(用户可见地图) 表示周围雷的个数和未翻开地图的状态（*）  
+	//创建mine_map(地雷地图)表示地雷（1）和不是地雷（0）的状态
+	char show_map[MAX_ROW][MAX_COL];
+	char mine_map[MAX_ROW][MAX_COL];
+	//对数组初始化
+	//show_map为未翻开的状态（*）
+	//mine_map为全都不是地雷后 随机安排十个地雷
+	init(show_map,mine_map);
+	int blank_count = 0;
+	//玩家操作,并校验坐标是否有效
+	while (1)
+	{
+
+		//打印地图show_map
+		print(show_map);
+		printf("请玩家输入要翻开的位置坐标：");
+		int row = 0;
+		int col = 0;
+		scanf("%d %d", &row, &col);
+		if (row >= MAX_ROW || row < 0 || col < 0 || col >= MAX_COL)
+		{
+			system("cls");
+			printf("您输入的坐标有误！\n");
+			continue;
+		}
+		if (show_map[row][col] != '*')
+		{
+			system("cls");
+			printf("您的输入已无效！\n");
+			continue;
+		}		
+		//判定游戏是否结束
+		if (mine_map[row][col] == '1')
+		{
+			system("cls");
+			print(mine_map);
+			printf("很遗憾，您踩雷了！\n");
+			return;
+		}
+		system("cls");
+		++blank_count;
+		//判断游戏是否胜利
+		if (blank_count == MAX_ROW * MAX_COL - MINE_COUNT)
+		{
+			printf("恭喜您，游戏胜利！\n");
+			return;
+		}
+		//当前位置周围雷的个数
+		MineCount(row, col, show_map,  mine_map);
+	}
+}
+
+int main()
+{
+	srand((unsigned int)time(0));
+	while (1)
+	{
+		//1.菜单选择
+		int choice = Start();
+		if (choice == 1)
+		{
+			Game();
+		}
+		else if (choice == 2)
+		{
+			break;
+		}
+		else
+		{
+			printf(" 您的输入有误！\n");
+		}
+	}
+	system("pause");
+	return 0;
+}
