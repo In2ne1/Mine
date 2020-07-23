@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+#include<string>
+//将一句话的单词进行倒置，标点不倒置
+//eg： i like beijing.
+//输出结果： beijing. like i
+
+class Solution
+{
+public:
+    string reverseString(string str)
+    {
+        string str1;
+        int pos;
+        while(str.rfind(" ") != -1)
+        {
+            pos = str.rfind(" ");  //从后往前找到倒数第一个空格
+            str1 += str.substr(pos + 1,str.size() - 1);  //将空格后的所有字符赋给str1
+            str1 += " ";  //并在str1后加一个空格
+            str = str.substr(0, pos);  //从str中剪掉该空格和空格后的所有字符
+        }
+        str1 += str;  //把最后一段没有空格的字符串赋给str1
+        return str1;
+    }
+};
+int main()
+{
+    Solution aa;
+    string str;
+    while(getline(cin, str))  //oj测试用例循环输入
+    {
+        cout << aa.reverseString(str) << endl;
+    }
+    return 0;
+}

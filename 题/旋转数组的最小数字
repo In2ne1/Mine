@@ -1,0 +1,39 @@
+//把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+//输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+//例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
+//给出的所有元素都大于0，若数组大小为0，请返回0。
+
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) 
+    {
+        if(rotateArray.empty())  //若给出数组大小为0，则返回0
+        {
+            return 0;
+        }
+        int left = 0;
+        int right = rotateArray.size() - 1;
+        while(left < right)   //二分查找
+        {
+            if(rotateArray[left] < rotateArray[right])  //确认子数组是否是类似1,1,2,4,5,..,7的非递减数组
+            {
+                return rotateArray[left];
+            }
+            
+            int mid = left + (right - left) / 2;  //二分查找
+            if(rotateArray[left] < rotateArray[mid])   //此时mid一定属于前一部分的递增数列
+            {
+                left = mid + 1;
+            }
+            else if(rotateArray[mid] < rotateArray[right])
+            {
+                right = mid;   //若此时mid是最小值时，right就不能等于mid - 1，
+            }
+            else   
+            {
+                ++left;  //此时left加加后left、mid、right指向同一个位置
+            }
+        }
+        return rotateArray[left];
+    }
+};

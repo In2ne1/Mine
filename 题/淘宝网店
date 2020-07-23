@@ -1,0 +1,84 @@
+NowCoder在淘宝上开了一家网店。他发现在月份为素数的时候，当月每天能赚1元；否则每天能赚2元。
+现在给你一段时间区间，请你帮他计算总收益有多少。
+
+输入描述:
+输入包含多组数据。
+每组数据包含两个日期from和to (2000-01-01 ≤ from ≤ to ≤ 2999-12-31)。
+日期用三个正整数表示，用空格隔开：year month day。
+
+输出描述:
+对应每一组数据，输出在给定的日期范围（包含开始和结束日期）内能赚多少钱。
+示例1
+输入
+2000 1 1 2000 1 31
+2000 2 1 2000 2 29
+输出
+62
+29
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void JudgePrimeYear(int year, int* month)
+{
+	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+		month[2] += 1;
+	else
+		month[2] = 28;
+}
+int Income(vector<int> tim, int* month, int* flag)
+{
+	int money = 0;
+	if (tim[0] == tim[3])  //同年
+	{
+		JudgePrimeYear(tim[0], month);
+		if (tim[4] > tim[1])  //不同月
+		{
+			for (int m = tim[1] + 1; m < tim[4]; m++)  //中间的整月
+				money += month[m] * flag[m];
+			money += ((month[tim[1]] - tim[2] + 1) * flag[tim[1]]) + (tim[5] * flag[tim[4]]);  //首月加尾月
+		}
+		else  //同月
+			money = (tim[5] - tim[2] + 1) * flag[tim[1]];
+	}
+	else  //不同年
+	{
+		for (int y = tim[0] + 1; y < tim[3]; y++)  //全月年
+		{
+			JudgePrimeYear(y, month);
+			for (int m = 1; m <= 12; m++)
+				money += month[m] * flag[m];
+		}
+		JudgePrimeYear(tim[0], month);  //头年
+		for (int m = tim[1] + 1; m <= 12; m++)  //头年整月
+			money += month[m] * flag[m];
+		money += ((month[tim[1]] - tim[2] + 1) * flag[tim[1]]);  //头年首月
+		JudgePrimeYear(tim[3], month);  //尾年
+		for (int m = 1; m < tim[4]; m++)  //尾年的整月
+			money += month[m] * flag[m];
+		money += tim[5] * flag[4];  //尾年尾月
+	}
+	return money;
+}
+
+int main()
+{
+	int y1, m1, d1;
+	int y2, m2, d2;
+	vector<int> tim;
+	int month[] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };  //素数月2 3 5 7 11
+	int flag[] = { 0,2,1,1,2,1,2,1,2,2,2,1,2 };  //钱数
+	while (cin >> y1 >> m1 >> d1 >> y2 >> m2 >> d2)
+	{
+		tim.push_back(y1);
+		tim.push_back(m1);
+		tim.push_back(d1);
+		tim.push_back(y2);
+		tim.push_back(m2);
+		tim.push_back(d2);
+		cout << Income(tim, month, flag) << endl;
+		tim.clear();
+	}
+	return 0;
+}

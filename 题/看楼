@@ -1,0 +1,66 @@
+输入一组数字，表示一排楼的各自高度，输出站在每个楼的位置可以看到多少栋楼
+eg：输入：
+7
+5 3 8 2 4 7 1
+输出：
+2 2 5 3 3 3 2
+
+解释：比如站在第三个位置，前面可以看到楼高度分别是5 3，后面可以看到楼高度分别为2 4 7，故一共可以看到5栋楼
+
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+
+void func(vector<int> hight, vector<int> &ans, int n)
+{
+	
+	for (int i = 0; i < hight.size(); i++)
+	{
+		int count = 0;
+		if (i > 0)
+		{
+			stack<int> st1;
+			for (int j = i - 1; j >= 0; j--)
+			{
+				if (st1.empty() || hight[j] > st1.top())
+				{
+					st1.push(hight[j]);
+					count++;
+				}
+			}
+		}
+		if (i < hight.size() - 1)
+		{
+			stack<int> st2;
+			for (int k = i + 1; k < hight.size() ; k++)
+			{
+				if (st2.empty() || hight[k] > st2.top())
+				{
+					st2.push(hight[k]);
+					count++;
+				}
+			}
+		}
+		ans.push_back(count);
+	}
+}
+int main()
+{
+	int n, num;
+	vector<int> hight;
+	vector<int> ans;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> num;
+		hight.push_back(num);
+	}
+	func(hight, ans, n);
+	for (auto &ii : ans)
+	{
+		cout << ii << " ";
+	}
+	return 0;
+}
+

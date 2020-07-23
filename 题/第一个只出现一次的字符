@@ -1,0 +1,21 @@
+在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置,；
+如果没有则返回 -1（需要区分大小写）.（从0开始计数）
+
+class Solution {
+public:
+    int FirstNotRepeatingChar(string str) 
+    {
+        if(str.empty())
+            return -1;
+        int hashmap[256] = {0};
+        for(int i = 0; i < str.size(); i++)
+        {
+            ++hashmap[str[i]];
+        }
+        for(int i = 0; i < str.size(); i++)  //按str顺序遍历，即可找到第一个只出现一次的字符
+        {
+            if(hashmap[str[i]] == 1)
+                return i;
+        }
+    }
+};

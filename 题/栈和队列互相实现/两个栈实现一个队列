@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+#include<stack>
+#include<queue>
+
+class stackQueue  //两个栈实现一个队列
+{
+private:
+	stack<int> m_stack1;
+public:
+	stackQueue()  //无参构造
+	{
+
+	}
+
+	void push(int x)  //入队
+	{
+		m_stack1.push(x);
+	}
+	void pop()  //出队
+	{
+		stack<int> m_stack2;
+
+		while (m_stack1.size() > 1)
+		{
+			m_stack2.push(m_stack1.top());
+			m_stack1.pop();
+		}
+		m_stack1.pop();
+
+		while (m_stack2.size())
+		{
+			m_stack1.push(m_stack2.top());
+			m_stack2.pop();
+		}
+	}
+	int front()  //返回队首元素
+	{
+		stack<int> m_stack2;
+
+		while (m_stack1.size() > 1)
+		{
+			m_stack2.push(m_stack1.top());
+			m_stack1.pop();
+		}
+		int tmp = m_stack1.top();
+
+		while (m_stack2.size())
+		{
+			m_stack1.push(m_stack2.top());
+			m_stack2.pop();
+		}
+		return tmp;
+	}
+};
+
+int main()
+{
+	stackQueue s;
+
+	s.push(1);
+	s.push(2);
+	s.push(3);
+	s.push(4);
+	s.push(5);
+
+	cout << s.front() << endl;
+
+	s.pop();
+	s.pop();
+	s.push(6);
+	s.push(7);
+	cout << s.front() << endl;
+
+	system("pause");
+	return 0;
+}
