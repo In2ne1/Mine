@@ -1,0 +1,48 @@
+#include<iostream>
+#include<map>
+using namespace std;
+
+int func(map<int, int> monster, int y)
+{
+  int pos1, pos2;
+  int count = 0;
+  int tmp;
+  map<int, int>::iterator it = monster.begin();
+  pos1 = it->first;
+  tmp = it->second;
+  it++;
+  for (; it != monster.end(); it++)
+  {
+    pos2 = it->first;
+    if (pos2 - pos1 <= 2 * y)
+    {
+      tmp = it->second > tmp ? it->second : tmp;
+    }
+    else
+    {
+      count += tmp;
+      pos1 = it->first;
+      tmp = it->second;
+    }
+  }
+  count += tmp;
+  return count;
+}
+
+int main()
+{
+  int n, y;  //怪数量 人物伤害范围
+  int pos, hp;  //怪位置 怪hp
+  map<int, int> monster;
+  while (cin >> n >> y)
+  {
+    for (int i = 0; i < n; i++)
+    {
+      cin >> pos >> hp;
+      monster[pos] = hp;
+
+    }
+    cout << func(monster, y) << endl;
+  }
+  return 0;
+}
