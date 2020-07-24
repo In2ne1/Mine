@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+  string strTemp;
+  int array[100];
+  int i = 0;
+  stringstream sStream;
+
+  cin >> strTemp;
+  int pos = strTemp.find(',');
+  while (pos != string::npos)
+  {
+    strTemp = strTemp.replace(pos, 1, 1, ' ');  //将字符串中的','用空格代替
+    pos = strTemp.find(',');
+  }
+
+  sStream << strTemp;  //将字符串导入的流中
+  while (sStream)
+    sStream >> array[i++];
+
+  for (int j = 0; j < i - 1; j++)
+    cout << array[j] << "  ";
+  cout << endl;
+
+  return 0;
+}
