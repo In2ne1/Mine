@@ -1,0 +1,36 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+bool isPalindrome(string s)
+{
+  string tmp = s;
+  reverse(tmp.begin(), tmp.end());
+  return tmp == s;
+}
+void func(string s)
+{
+  string tmp;
+  string ans;
+  while (!isPalindrome(s))
+  {
+    tmp += s.substr(0, 1);
+    s.erase(0, 1);
+  }
+  ans = tmp;
+  ans += s;
+  reverse(tmp.begin(), tmp.end());
+  ans += tmp;
+  cout << ans << endl;
+}
+int main()
+{
+  string s;
+  cin >> s;
+  if (isPalindrome(s))
+    cout << s << endl;
+  else
+    func(s);
+  return 0;
+}
