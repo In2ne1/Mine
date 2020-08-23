@@ -1,0 +1,36 @@
+#include<iostream>
+#include<map>
+using namespace std;
+void discount(multimap<int, int> mp)
+{
+  int value = 0, pay = 0;
+  multimap<int, int>::iterator it = mp.begin();
+  for (; it != mp.end(); it++)
+  {
+    if (it->first <= it->second)
+    {
+      value += it->second;
+    }
+    if (it->first > it->second)
+    {
+      value += it->first;
+      pay += (it->first) - (it->second);
+    }
+  }
+  cout << value << " ";
+  cout << pay << endl;
+}
+int main()
+{
+  int n;
+  cin >> n;
+  multimap<int, int> mp;
+  for (int i = 0; i < n; i++)
+  {
+    int first, second;
+    cin >> first >> second;
+    mp[first] = second;
+  }
+  discount(mp);
+  return 0;
+}
