@@ -1,0 +1,50 @@
+/*
+外星人基因问题：俩外星人生孩子，他们的DNA是是一个字符串
+孩子的基因取决于他俩的基因重复片段有多少(即字符串匹配问题)
+重复率大于百分之五十不能生，求输出率，并判断能不能生
+*/
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+  int N;
+  cin >> N;
+  vector<char> A, B;
+  char tmp;
+  for (int i = 0; i < N; i++)
+  {
+    cin >> tmp;
+    A.push_back(tmp);
+  }
+  for (int i = 0; i < N; i++)
+  {
+    cin >> tmp;
+    B.push_back(tmp);
+  }
+  vector<vector<int>> DP;
+  for (int i = 0; i < N + 1; i++)
+  {
+    vector<int> tmp(N + 1, 0);
+    DP.push_back(tmp);
+  }
+  for (int i = 1; i <= N; i++)
+  {
+    for (int j = i; j <= N; j++)
+      DP[i][j] = A[i - 1] == B[j - 1] ? DP[i - 1][j - 1] + 1 : max(DP[i - 1][j], DP[i][j - 1]);
+  }
+  int bit2 = DP[N][N] * 100 / N;
+  if (bit2 < 100 && bit2 > 0)
+  {
+    int bit3 = DP[N][N] * 1000 / N;
+    if (bit3 % 10 > 5)
+      bit2++;
+    cout << "0." << (bit2 > 50 ? "No" : "Yes") << endl;
+  }
+  else if (!bit2)
+    cout << "0.00 Yes";
+  else
+    cout << "1.00 No";
+  return 0;
+}
