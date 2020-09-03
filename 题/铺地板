@@ -1,0 +1,52 @@
+/*
+小明和小红装修铺地板，有一块挖掘机型的地板，长为L，小明和小红各自觉得只铺其中几块好看；
+所以各自铺完，求每块地板都铺了几次；
+输入：
+第一行T，表示T组数据；
+第二行L，n分别表示地板长L，小明和小红共有n个想法；
+接下来n行，每行分别输入l，r表示在闭区间[l，r]内铺一层地板；
+
+输出：
+每块地板上都铺了几层；
+eg：
+1
+6 3
+1 2
+4 5
+3 6
+输出：1 1 1 2 2 1
+*/
+#include<iostream>
+#include<vector>
+#include<map>
+using namespace std;
+void func(multimap<int, int> mp, int L)
+{
+  int arr[1000] = { 0  };
+  for (multimap<int, int>::iterator it = mp.begin(); it != mp.end(); it++)
+  {
+    for (int i = (*it).first - 1; i < (*it).second; i++)
+    {
+      arr[i] += 1;
+    }
+  }
+  for (int i = 0; i < L; i++)
+  {
+    cout << arr[i] << " ";
+  }
+  cout << endl;
+}
+int main()
+{
+  int T, L, n;
+  cin >> T >> L >> n;
+  int l, r;
+  multimap<int, int> mp;
+  for (int i = 0; i < n; i++)
+  {
+    cin >> l >> r;
+    mp.insert(pair<int, int>(l, r));
+  }
+  func(mp, L);
+  return 0;
+}
