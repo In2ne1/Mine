@@ -1,0 +1,33 @@
+/*
+   正整数y可以由多个不相同的自然数相加的得到
+   现在将y定义为，x1 + x2 + ... + xn = y
+   其中对任意i≠j,必有xi≠xj,且xi不能被k(k!=0且k!=1)整除
+   这样的唯一组合可能有多个
+   eg：m = 9, k = 4，则他的唯一组合有5个，分别为
+   9=9， 9=6+2+1， 9=7+2，9=6+3，9=5+3+1
+   请找出正整数y的唯一组合的个数
+ */
+#include<iostream>
+#include<vector>
+using namespace std;
+int func(int y, int k)
+{
+  int count = 0;
+  if (y % k != 0)
+    count++;
+  for (int i = 1; i < y; i++)
+  {
+    if (y - i <= i)
+      break;
+    if ((y - i) % k != 0)
+      count += func(i, k);
+  }
+  return count;
+}
+int main()
+{
+  int y, k;
+  cin >> y >> k;
+  cout << func(y, k) << endl;
+  return 0;
+}
