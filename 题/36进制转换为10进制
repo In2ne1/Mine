@@ -1,0 +1,54 @@
+/*
+将一个36进制字符串转化为十进制并输出
+若超出long的界限9223372036854775807和-9223372036854775807;则直接输出界限值
+若输入不合法如-&agk，则输出0
+//负数溢出
+*/
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+long func(string s)
+{
+  long ans = 0;
+  int a[26];
+  for (int k = 0; k < 26; k++)
+  {
+    a[k] = 10 + k;
+  }
+  int i, j;
+  for (i = s.size() - 1, j = 0; i >= 0; i--, j++)
+  {
+    if (i == s.size() - 1 && s[i] == '-')
+    {
+      ans *= -1;
+      break;
+    }
+    long bit = pow(36, j);
+    long tmp;
+    if (s[i] >= 'a' && s[i] <= 'z')
+    {
+      tmp = a[s[i] - 'a'] * bit;
+      ans += tmp;
+    }
+    else if (s[i] >= '0' && s[i] <= '9')
+    {
+      tmp = (s[i] - '0') * bit;
+      ans += tmp;
+    }
+    else
+      return 0;
+  }
+  if (ans > 9223372036854775807)
+    return 9223372036854775807;
+  else
+    return ans;
+}
+int main()
+{
+  string s;
+  cin >> s;
+  cout << func(s) << endl;
+  return 0;
+}
