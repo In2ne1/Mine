@@ -1,0 +1,45 @@
+/*
+已知一个无序整数数组（元素为1 - 17、有重复数字），
+请将其中相加等于18的数字成对删除，返回数组剩余内容。
+示例：[17, 9, 1, 2, 9, 17] = > [2, 17]
+*/
+#include<iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+  int arr[] = {17,9,1,2,9,17};
+  vector<int> a(arr, arr + 6);
+  for (int i = 0; i < a.size(); i++)
+  {
+    int num = 18 - a[i];
+    for (int j = i; j < a.size(); j++)
+    {
+      if (i == j)
+        continue;
+      else
+      {
+        if (a[j] == num)
+        { 
+          a.erase(a.begin() + i);
+          if (i < j)
+          {
+            a.erase(a.begin() + j - 1);
+          }
+          else
+          {
+            a.erase(a.begin() + j);
+          }
+          i--;
+          break;
+        }
+      }
+    }
+  }
+  for (auto &ii : a)
+  {
+    cout << ii << " ";
+  }
+  cout << endl;
+  return 0;
+}
